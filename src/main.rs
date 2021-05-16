@@ -7,18 +7,23 @@ fn main() {
     let interface = String::from("wlan0");
     let mut new_mac = String::from("00:11:22:33:44:55");
 
-    output = Command::new("ifconfig")
-        .arg(interface, "down")
+    let mut output = Command::new("ifconfig")
+        .arg(interface)
+        .arg("down")
         .output()
         .expect("Failed to execute command");
 
-    output2 = Command::new("ifconfig")
-        .arg("interface", "hw", "ether", new_mac)
+    let mut output2 = Command::new("ifconfig")
+        .arg(interface)
+        .arg("hw")
+        .arg("ether")
+        .arg(new_mac)
         .output()
         .expect("Failed to execute command");
 
-    output3 = Command::new("ifconfig")
-        .arg("interface", "up")
+    let mut output3 = Command::new("ifconfig")
+        .arg(interface)
+        .arg("up")
         .output()
         .expect("Failed to execute command");
 }
