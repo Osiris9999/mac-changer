@@ -1,29 +1,26 @@
 use std::process::Command;
-fn main() {
-    //ifconfig wlan0 down
-    // ifconfig wlan0 hw ether 00:11:22:33:44:55
-    //ifconfig wlan0 up
 
+fn main() {
     let interface = String::from("wlan0");
     let new_mac = String::from("00:11:22:33:44:55");
-
-    let _output = Command::new("ifconfig")
+    let output1 = Command::new("ifconfig")
         .arg(interface.clone())
         .arg("down")
         .output()
         .expect("Failed to execute command");
-
-    let _output2 = Command::new("ifconfig")
+    println!("\x1b[1;31m{}", String::from_utf8_lossy(&output1.stderr).replace("\n", ""));
+    let output2 = Command::new("ifconfig")
         .arg(interface.clone())
         .arg("hw")
         .arg("ether")
         .arg(new_mac)
         .output()
         .expect("Failed to execute command");
-
-    let _output3 = Command::new("ifconfig")
+        println!("\x1b[1;31m{}", String::from_utf8_lossy(&output2.stderr).replace("\n", ""));
+    let output3 = Command::new("ifconfig")
         .arg(interface.clone())
         .arg("up")
         .output()
         .expect("Failed to execute command");
+    println!("\x1b[1;31m{}", String::from_utf8_lossy(&output3.stderr).replace("\n", ""));
 }
